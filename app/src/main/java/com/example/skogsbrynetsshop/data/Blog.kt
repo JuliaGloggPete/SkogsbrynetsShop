@@ -11,11 +11,6 @@ data class Blog(
     var blogMainImagePath: String = "",
     var blogImageGridPaths: MutableList<String>?,
     var publishedDate : Date,
-    var blogStatus : Status = Status.DRAFT
-){
-    enum class Status {
-        DRAFT,
-        PUBLISHED,
+    var blogOnline : Boolean = false
+)
 
-    }
-}

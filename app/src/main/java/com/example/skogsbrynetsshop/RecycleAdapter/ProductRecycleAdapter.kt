@@ -14,12 +14,7 @@ class ProductRecycleAdapter(val products : List<Product>, val context: Context) 
     var layoutInflater = LayoutInflater.from(context)
 
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        var productNameTV = itemView.findViewById<TextView>(R.id.tv_productName)
-        var productDescription = itemView.findViewById<TextView>(R.id.tv_productDescription)
-
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = layoutInflater.inflate(R.layout.product_list_item, parent, false)
@@ -37,6 +32,11 @@ class ProductRecycleAdapter(val products : List<Product>, val context: Context) 
         holder.productNameTV.text = product.productTitle
         holder.productDescription.text = product.productDescription
     }
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
+        var productNameTV = itemView.findViewById<TextView>(R.id.tv_productName)
+        var productDescription = itemView.findViewById<TextView>(R.id.tv_productDescription)
+
+    }
 
 }

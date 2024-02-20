@@ -2,7 +2,6 @@ package com.example.skogsbrynetsshop
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -15,7 +14,6 @@ import com.example.skogbrynetsverkstad.data.Product
 import com.example.skogsbrynetsshop.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
 val db = Firebase.firestore
@@ -72,7 +70,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.bottomNavigation.setOnItemReselectedListener { item ->
             when(item.itemId){
                 R.id.bottom_home -> openFragment(HomeFragment())
-                R.id.bottom_blogg -> openFragment(BloggsFragment())
+                R.id.bottom_blogg -> openFragment(BlogsFragment())
                 R.id.bottom_product -> openFragment(ProductsFragment())
                 R.id.bottom_orders -> openFragment(OrdersFragment())
             }
@@ -97,7 +95,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when(item.itemId){
           R.id.nav_orders -> openFragment(OrdersFragment())
             R.id.nav_products -> openFragment(ProductsFragment())
-            R.id.nav_bloggs -> openFragment(BloggsFragment())
+            R.id.nav_bloggs -> openFragment(BlogsFragment())
         }
 
         binding.drawerLayout.closeDrawer(GravityCompat.START)

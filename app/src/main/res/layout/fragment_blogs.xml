@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BloggsFragment">
+    tools:context=".BlogsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -16,7 +16,7 @@
         android:textSize="36dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/bloggRecyclerview"
+        android:id="@+id/blogRecyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
