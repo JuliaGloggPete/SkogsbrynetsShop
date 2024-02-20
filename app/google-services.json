@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "887634919102",
+    "project_id": "skogbrynets-verkstad",
+    "storage_bucket": "skogbrynets-verkstad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887634919102:android:323cfc59912190428728ef",
+        "android_client_info": {
+          "package_name": "com.example.skogbrynetsverkstad"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPB4KF9Ey6MbmwDpXFMKYGou-mjyU5CbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887634919102:android:61608f47639cb4ec8728ef",
+        "android_client_info": {
+          "package_name": "com.example.skogsbrynetsshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPB4KF9Ey6MbmwDpXFMKYGou-mjyU5CbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

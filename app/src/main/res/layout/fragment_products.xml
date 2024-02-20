@@ -6,13 +6,12 @@
     tools:context=".ProductsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Products"
-        android:gravity="center"
-        android:textColor="@color/green"
-
-        android:textSize="36dp"/>
+        android:layout_marginTop="35dp"
+        tools:listitem="@layout/product_list_item" />
 
 </FrameLayout>
