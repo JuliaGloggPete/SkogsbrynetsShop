@@ -1,5 +1,6 @@
 package com.example.skogsbrynetsshop
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -38,12 +39,13 @@ class BlogsFragment : Fragment() {
         }
     }
 
+        @SuppressLint("MissingInflatedId")
         override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
         ): View? {
             // Inflate the layout for this fragment
-            val view = inflater.inflate(R.layout.fragment_orders, container, false)
+            val view = inflater.inflate(R.layout.fragment_blogs, container, false)
             val recyclerView = view.findViewById<RecyclerView>(R.id.blogRecyclerview)
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
             val adapter = BlogRecycleAdapter( requireContext(), blogList)

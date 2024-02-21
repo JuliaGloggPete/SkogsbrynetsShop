@@ -9,12 +9,16 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.example.skogbrynetsverkstad.data.Blog
 import com.example.skogbrynetsverkstad.data.Color
 import com.example.skogbrynetsverkstad.data.Product
+import com.example.skogsbrynetsshop.data.BlogContentText
+import com.example.skogsbrynetsshop.data.BlogSupportImages
 import com.example.skogsbrynetsshop.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import org.checkerframework.checker.units.qual.s
 
 val db = Firebase.firestore
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -38,7 +42,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
 
-        val product1 = Product("Vantar","mysiga vantar för små händer",
+        val product3 = Product("Sittunderlägg","mysig sittunderläg",
             "endast handtvätt", mutableListOf(".."),true,
             mutableListOf(
                 Color("grey",0.0,Color.Availability.AVAILABLE),
@@ -46,20 +50,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             null,33.0,1,0,false, Product.Availability.CUSTOM_MADE,false
         )
 
-        //db.collection("Product").add(product1)
-    /*    val docRef = db.collection("Product")
-        docRef.get().addOnSuccessListener {
-                collectionSnapShot ->
-            for (document in collectionSnapShot.documents){
-                val item = document.toObject<Product>()
-                if (item != null){
-                    productList.add(item)
+        //db.collection("Product").add(product3)
 
-                }
-            }
-            printItem()
-        }*/
+        val blog1 = Blog("Återvinning är kul","Enkel väg att återvinna",
+            mutableListOf(BlogContentText("","",null,3,1)),
+            null,null,false
+        )
 
+        val blog2 = Blog("hej","hallo",null,null,null,
+            false)
+
+       // db. collection("Blog").add(blog1)
+        //db. collection("Blog").add(blog2)
         val toggle = ActionBarDrawerToggle(this,binding.drawerLayout, binding.toolbar, R.string.nav_open, R.string.nav_close)
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
