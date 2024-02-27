@@ -2,7 +2,26 @@
     <string name="app_name">Skogsbrynets Shop</string>
     <string name="nav_close">Close Navigaiton Drawer</string>
     <string name="nav_open">Open Navigation Drawer</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="availibility_color">Disponibla färger</string>
+    <string name="availability_sizes">Disponibla storlekar</string>
+    <string name="product_long_description">Long beskrivning</string>
+    <string name="product_title">Titel</string>
+    <string name="product_informaiton">Produkt information</string>
+    <string name="product_short_description">Kort beskrivning</string>
+    <string name="product_price">Pris per förpackning</string>
+    <string name="product_need_costumer_input">Behöver interaktion från kunden</string>
+    <string name="product_availabiliy">Tillgänglighet</string>
+    <string name="product_count">Antal disponibla</string>
+    <string name="product_visible_on_Homepage">Visas på hemsidan</string>
 
+    <string name="grey">grå</string>
+    <string name="brown">brun</string>
+    <string name="white">vit</string>
+    <string name="black">svart</string>
+
+
+
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
