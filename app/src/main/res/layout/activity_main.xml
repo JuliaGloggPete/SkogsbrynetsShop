@@ -25,13 +25,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!-- Place the FrameLayout first -->
+
             <FrameLayout
                 android:id="@+id/fragment_container"
                 android:layout_width="match_parent"
                 android:layout_height="648dp">
 
-                <!-- Your RecyclerView and other content go here -->
+
 
             </FrameLayout>
 
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/green"
-                android:src="@drawable/baseline_add_24"
+                android:src="@drawable/outline_camera_alt_24"
                 app:layout_anchor="@id/bottomAppBar"
                 app:maxImageSize="40dp" />
 
