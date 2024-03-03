@@ -48,19 +48,28 @@ class ProductsFragment : Fragment() {
         val adapter = ProductRecycleAdapter(productList, requireContext())
         recyclerView.adapter = adapter
 
+
         val docRef = db.collection("Product")
-        docRef.get().addOnSuccessListener { collectionSnapShot ->
-            for (document in collectionSnapShot.documents) {
-                val item = document.toObject<Product>()
-                if (item != null) {
-                    productList.add(item)
-                }
+
+        docRef.addSnapshotListener { collectionSnapShot, e ->
+            if (e != null) {
+                // Handle the error
+                return@addSnapshotListener
             }
-            adapter.notifyDataSetChanged()
+
+            collectionSnapShot?.let {
+                val newItems = it.documents.mapNotNull { document ->
+                    document.toObject<Product>()
+                }
+
+                productList.addAll(newItems)
+                adapter.notifyItemRangeInserted(productList.size - newItems.size, newItems.size)
+            }
         }
 
         return view
     }
+
 
 
     companion object {

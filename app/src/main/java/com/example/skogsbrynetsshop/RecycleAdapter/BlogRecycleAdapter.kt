@@ -45,8 +45,6 @@ class BlogRecycleAdapter(val context: Context, val blogs : List<Blog>) :
         val blogTitleTV = itemView.findViewById<TextView>(R.id.tv_bloggTitle)
         val blogShortDescrTV = itemView.findViewById<TextView>(R.id.tv_bloggShortDescription)
         val toggleOnline = itemView.findViewById<Switch>(R.id.toggleOnline)
-        val blogChangeButton = itemView.findViewById<ImageButton>(R.id.imButton_changeBlog)
-
 
 
     }
