@@ -15,6 +15,8 @@ data class Product(
     var needsCustomerInput: Boolean = false,
     var availability: Availability = Availability.AVAILABLE,
     var visibleOnHomepage: Boolean = false,
+    var productShortDescription: String = "",
+    var category: MutableList<String> =mutableListOf<String>(),
 
 
     ) {
