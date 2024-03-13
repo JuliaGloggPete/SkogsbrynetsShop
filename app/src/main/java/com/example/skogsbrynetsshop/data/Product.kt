@@ -4,6 +4,9 @@ data class Product(
     var productTitle: String = "",
     var productDescription: String = "",
     var productInformation: String = "",
+    var productShortDescription: String = "",
+    var productCategory: MutableList<String> =mutableListOf<String>(),
+    var productPrimaryPicturePath: String = "",
     var productImagePaths: MutableList<String> =  mutableListOf<String>(),
     var availableDifferentColors: Boolean = false,
     var colors: MutableList<Color> = mutableListOf<Color>(),
@@ -15,8 +18,7 @@ data class Product(
     var needsCustomerInput: Boolean = false,
     var availability: Availability = Availability.AVAILABLE,
     var visibleOnHomepage: Boolean = false,
-    var productShortDescription: String = "",
-    var category: MutableList<String> =mutableListOf<String>(),
+
 
 
     ) {

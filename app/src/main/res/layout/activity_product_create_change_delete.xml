@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".ProductCreateChangeDeleteActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -20,7 +21,8 @@
 
     <ScrollView
         android:layout_width="403dp"
-        android:layout_height="655dp"
+        android:layout_height="638dp"
+        android:padding="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -101,6 +103,36 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_helpTextCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kategorie" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxGiftIdea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Presenttipps" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxSheepWoll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fårull " />
+
+                <CheckBox
+                    android:id="@+id/checkBoxHerbs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Krydda" />
+
+            </TableRow>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -114,7 +146,7 @@
                     app:srcCompat="@drawable/outline_camera_alt_24" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/btn_AddPic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="6dp"
@@ -122,91 +154,239 @@
 
             </LinearLayout>
 
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/availability_sizes" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <CheckBox
+                    android:id="@+id/checkBoxSizeS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="S" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxSizeM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="M" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxSizeL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="L" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxSizeXL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XL" />
+
+                <CheckBox
+                    android:id="@+id/checkBox5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="OneSize" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <CheckBox
+                    android:id="@+id/checkBoxUserInputSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="enligt beställning/Beställningsvara" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textViewPackageSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Förpackgningsstorlek:" />
+
+                <EditText
+                    android:id="@+id/editTextPackaging"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="2"
+                    android:inputType="text" />
+
+                <TextView
+                    android:id="@+id/textViewHelpTextPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Pris: " />
+
+                <EditText
+                    android:id="@+id/editTextPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="2"
+                    android:inputType="text" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/helpTextViewColors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/availibility_color" />
+
+            </TableRow>
+
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/availability_sizes" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent">
 
                     <CheckBox
-                        android:id="@+id/checkBoxSizeS"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/checkBoxVit"
+                        android:layout_width="95dp"
                         android:layout_height="wrap_content"
-                        android:text="S" />
+                        android:text="vit" />
 
                     <CheckBox
-                        android:id="@+id/checkBoxSizeM"
+                        android:id="@+id/checkGrey"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="M" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                        android:text="grå" />
 
                     <CheckBox
-                        android:id="@+id/checkBoxSizeL"
+                        android:id="@+id/checkBoxSvart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="L" />
+                        android:text="svart" />
 
                     <CheckBox
-                        android:id="@+id/checkBoxSizeXL"
+                        android:id="@+id/checkBoxBrown"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="XL" />
+                        android:text="brun" />
 
                 </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/helpTextViewColors"
+                    <CheckBox
+                        android:id="@+id/checkBoxMixedBlackWhite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/availibility_color" />
+                        android:text="svart/vit" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxMixedGreyWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="grå/vit" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxMixedBrownWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="brun/vit" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxMixedGreyBrown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="grå/brun" />
 
                 </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent">
 
                     <CheckBox
-                        android:id="@+id/checkBox3"
+                        android:id="@+id/checkBoxMixedGreyBlack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CheckBox" />
+                        android:text="grå/svart" />
 
                     <CheckBox
-                        android:id="@+id/checkBox2"
+                        android:id="@+id/checkBoxMixedBlackBrown"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CheckBox" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="CheckBox" />
+                        android:text="burn/svart" />
                 </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
             </TableLayout>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/editTextAddNewColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text" />
+
+                <Button
+                    android:id="@+id/buttonAddColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ny färg" />
+
+            </TableRow>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RV_color"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/color_list_item" />
+
+            <Switch
+                android:id="@+id/switchOnHomepage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Online" />
+
+            <Button
+                android:id="@+id/btnAdd2Firebase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lägg till" />
 
 
         </LinearLayout>

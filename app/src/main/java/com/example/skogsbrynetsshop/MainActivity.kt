@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.skogbrynetsverkstad.data.Blog
 import com.example.skogbrynetsverkstad.data.Color
 import com.example.skogbrynetsverkstad.data.Product
+import com.example.skogbrynetsverkstad.data.Size
 import com.example.skogsbrynetsshop.data.BlogContentText
 import com.example.skogsbrynetsshop.data.BlogSupportImages
 import com.example.skogsbrynetsshop.databinding.ActivityMainBinding
@@ -39,18 +40,36 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+        val product5 = Product("Selleriesalt","Sellerie och salt torkat, passer " +
+                "utmärkt till soppor och saucer", "förvaras torrt","Sellerisalt",
+        mutableListOf("kryddor","handgjort"),"", mutableListOf(""), false,
+            mutableListOf(Color("")),true, mutableListOf(Size("L",5.0,Size.Availability.AVAILABLE),
+                Size("M", 2.5, Size.Availability.AVAILABLE ), Size("S",null, Size.Availability.AVAILABLE)
+            ),
+            25.0, 1,12,false,Product.Availability.AVAILABLE,true
+        )
+
+        val product6 = Product("Kryddsalt","Kryddor och salt torkat, passer " +
+                "utmärkt till soppor och saucer", "förvaras torrt","Sellerisalt",
+            mutableListOf("kryddor","handgjort"),"", mutableListOf(""), false,
+            mutableListOf(Color("")),true, mutableListOf(Size("L",5.0,Size.Availability.AVAILABLE),
+                Size("M", 2.5, Size.Availability.AVAILABLE ), Size("S",null, Size.Availability.AVAILABLE)),
+            25.0, 1,12,false,Product.Availability.AVAILABLE,true
+        )
+       // db.collection("Product").add(product6)
+        //db.collection("Product").add(product5)
 
 
-
-        val product3 = Product("Sittunderlägg","mysig sittunderläg",
-            "endast handtvätt", mutableListOf(".."),true,
+       /* val product3 = Product("Sittunderlägg","mysig sittunderläg",
+            "endast handtvätt", mutableListOf(""),true,
             mutableListOf(
                 Color("grey",0.0,Color.Availability.AVAILABLE),
                 Color("white",0.0,Color.Availability.AVAILABLE)),false,
             null,33.0,1,0,false, Product.Availability.CUSTOM_MADE,false
         )
 
-        //db.collection("Product").add(product3)
+        db.collection("Product").add(product4)
+        db.collection("Product").add(product4)
 
         val blog1 = Blog("Återvinning är kul","Enkel väg att återvinna",
             mutableListOf(BlogContentText("","",null,3,1)),
@@ -61,7 +80,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             false)
 
        // db. collection("Blog").add(blog1)
-        //db. collection("Blog").add(blog2)
+        //db. collection("Blog").add(blog2)*/
         val toggle = ActionBarDrawerToggle(this,binding.drawerLayout, binding.toolbar, R.string.nav_open, R.string.nav_close)
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()

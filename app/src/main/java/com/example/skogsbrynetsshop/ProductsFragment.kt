@@ -1,5 +1,6 @@
 package com.example.skogsbrynetsshop
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.skogbrynetsverkstad.data.Product
 import com.example.skogsbrynetsshop.RecycleAdapter.ProductRecycleAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.toObject
 
 // TODO: Rename parameter arguments, choose names that match
@@ -43,6 +45,12 @@ class ProductsFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_products, container, false)
 
+        val btnAddChangeProduct = view.findViewById<FloatingActionButton>(R.id.fabAddProduct)
+
+        btnAddChangeProduct.setOnClickListener {
+            val intent = Intent(requireContext(), ProductCreateChangeDeleteActivity::class.java)
+            startActivity(intent)
+        }
         val recyclerView = view.findViewById<RecyclerView>(R.id.productRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val adapter = ProductRecycleAdapter(productList, requireContext())
@@ -69,7 +77,6 @@ class ProductsFragment : Fragment() {
 
         return view
     }
-
 
 
     companion object {
