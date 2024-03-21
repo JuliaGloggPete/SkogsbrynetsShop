@@ -24,14 +24,10 @@ import org.checkerframework.checker.units.qual.s
 val db = Firebase.firestore
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-
-
-
-
     private lateinit var fragmentManager: FragmentManager
     private lateinit var binding: ActivityMainBinding
 
-    //https://www.youtube.com/watch?v=3VIzc_uhUCQ  16
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
@@ -40,47 +36,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        val product5 = Product("Selleriesalt","Sellerie och salt torkat, passer " +
-                "utmärkt till soppor och saucer", "förvaras torrt","Sellerisalt",
-        mutableListOf("kryddor","handgjort"),"", mutableListOf(""), false,
-            mutableListOf(Color("")),true, mutableListOf(Size("L",5.0,Size.Availability.AVAILABLE),
-                Size("M", 2.5, Size.Availability.AVAILABLE ), Size("S",null, Size.Availability.AVAILABLE)
-            ),
-            25.0, 1,12,false,Product.Availability.AVAILABLE,true
-        )
-
-        val product6 = Product("Kryddsalt","Kryddor och salt torkat, passer " +
-                "utmärkt till soppor och saucer", "förvaras torrt","Sellerisalt",
-            mutableListOf("kryddor","handgjort"),"", mutableListOf(""), false,
-            mutableListOf(Color("")),true, mutableListOf(Size("L",5.0,Size.Availability.AVAILABLE),
-                Size("M", 2.5, Size.Availability.AVAILABLE ), Size("S",null, Size.Availability.AVAILABLE)),
-            25.0, 1,12,false,Product.Availability.AVAILABLE,true
-        )
-       // db.collection("Product").add(product6)
-        //db.collection("Product").add(product5)
 
 
-       /* val product3 = Product("Sittunderlägg","mysig sittunderläg",
-            "endast handtvätt", mutableListOf(""),true,
-            mutableListOf(
-                Color("grey",0.0,Color.Availability.AVAILABLE),
-                Color("white",0.0,Color.Availability.AVAILABLE)),false,
-            null,33.0,1,0,false, Product.Availability.CUSTOM_MADE,false
-        )
-
-        db.collection("Product").add(product4)
-        db.collection("Product").add(product4)
-
-        val blog1 = Blog("Återvinning är kul","Enkel väg att återvinna",
-            mutableListOf(BlogContentText("","",null,3,1)),
-            null,null,false
-        )
-
-        val blog2 = Blog("hej","hallo",null,null,null,
-            false)
-
-       // db. collection("Blog").add(blog1)
-        //db. collection("Blog").add(blog2)*/
         val toggle = ActionBarDrawerToggle(this,binding.drawerLayout, binding.toolbar, R.string.nav_open, R.string.nav_close)
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -103,13 +60,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             Toast.makeText(this, "Categories", Toast.LENGTH_SHORT).show()
         }
     }
-
-   /* fun printItem(){
-        for (item in productList) {
-            Log.d("DDD", "${item.productTitle}")
-
-        }
-    }*/
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 

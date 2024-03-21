@@ -1,14 +1,21 @@
 package com.example.skogsbrynetsshop
 
+import android.app.ProgressDialog
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.Toast
 import android.widget.ToggleButton
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,10 +28,14 @@ import com.example.skogsbrynetsshop.dataManagers.DataManagerColors.colors
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import com.google.firebase.storage.FirebaseStorage
 
 class ProductCreateChangeDeleteActivity : AppCompatActivity() {
     lateinit var db: FirebaseFirestore
-
+    lateinit var takeInPick: ImageView
     lateinit var productTitleET: EditText
     lateinit var productShortDescriptionET: EditText
     lateinit var productInformationET: EditText
@@ -45,6 +56,9 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
     lateinit var newColor: EditText
     var colors = mutableListOf<Color>()
     lateinit var colorRecyclerView: RecyclerView
+    lateinit var productPrimaryPicturePath: String
+    lateinit var imageUri: Uri
+
 
 
 
@@ -66,13 +80,25 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
         sheepWol = findViewById(R.id.checkBoxSheepWoll)
         newColor = findViewById(R.id.editTextAddNewColor)
 
+        val addPicButton = findViewById<Button>(R.id.btn_AddPic)
+
+        addPicButton.setOnClickListener {
+           selectImage()
+
+        }
+
         val addButton = findViewById<Button>(R.id.btnAdd2Firebase)
         addButton.setOnClickListener {
+
+
             addProduct()
 
             finish()
 
         }
+
+        takeInPick = findViewById<ImageView>(R.id.imageViewPic)
+
 
 
         colorRecyclerView  = findViewById<RecyclerView>(R.id.RV_color)
@@ -91,7 +117,15 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
 
 
     }
+    private fun selectImage() {
 
+        val intent = Intent()
+        intent.setType("image/*")
+
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 100)
+
+    }
     fun addColor(){
 
         val colorName = newColor.text.toString()
@@ -103,15 +137,62 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
 
 
     }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+
+            imageUri = data?.data!!
+
+            takeInPick.setImageURI(imageUri)
+            uploadImage()
+
+        }
+
+
+    }
+    private fun uploadImage() {
+
+
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Uploading File...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
+
+        val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
+        val now = Date()
+        val fileName = formatter.format(now)
+        imageFileName = fileName.toString()
+        productPrimaryPicturePath = "images/${imageFileName}"
+        Log.d("###", "${imageFileName}")
+
+        val storageReference = FirebaseStorage.getInstance().getReference("images/$fileName")
+
+        storageReference.putFile(imageUri).addOnSuccessListener {
+
+
+            takeInPick.setImageURI(imageUri)
+            Toast.makeText(this@ProductCreateChangeDeleteActivity, "Successfuly upladed", Toast.LENGTH_SHORT)
+                .show()
+            if (progressDialog.isShowing) progressDialog.dismiss()
+
+        }.addOnFailureListener {
+
+            if (progressDialog.isShowing) progressDialog.dismiss()
+            Toast.makeText(this@ProductCreateChangeDeleteActivity,  "failed", Toast.LENGTH_SHORT).show()
+
+        }
+    }
     fun addProduct() {
+
+
 
         var productTitle = productTitleET.text.toString()
         var productDescription = productLongDescription.text.toString()
         var productInformation = productInformationET.text.toString()
         var productShortDescription = productShortDescriptionET.text.toString()
         var productCategory = mutableListOf<String>()
-        var productPrimaryPicturePath = ""
+
         var productImagePaths = mutableListOf<String>()
         var availableDifferentColors = false
         var colors = mutableListOf<Color>()
@@ -137,14 +218,6 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
         val newProduct = Product(productTitle,productDescription,productInformation,productShortDescription,
             productCategory,productPrimaryPicturePath,productImagePaths,availableDifferentColors,colors,
             availableDifferentSizes,sizes,price,packaging,count,needsCustomerInput,availability,visibleOnHomepage)
-
-        /* val product6 = Product("Kryddsalt","Kryddor och salt torkat, passer " +
-                 "utmärkt till soppor och saucer", "förvaras torrt","Sellerisalt",
-             mutableListOf("kryddor","handgjort"),"", mutableListOf(""), false,
-             mutableListOf(Color("")),true, mutableListOf(Size("L",5.0,Size.Availability.AVAILABLE),
-                 Size("M", 2.5, Size.Availability.AVAILABLE ), Size("S",null, Size.Availability.AVAILABLE)),
-             25.0, 1,12,false, Product.Availability.AVAILABLE,true
-         )*/
 
         db.collection("Product").add(newProduct)
 

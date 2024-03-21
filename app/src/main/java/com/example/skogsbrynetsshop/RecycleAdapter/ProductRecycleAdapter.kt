@@ -1,13 +1,21 @@
 package com.example.skogsbrynetsshop.RecycleAdapter
 
 import android.content.Context
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.ImageView
+import android.widget.TableRow
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.skogbrynetsverkstad.data.Product
 import com.example.skogsbrynetsshop.R
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+
 
 class ProductRecycleAdapter(val products : List<Product>, val context: Context) : RecyclerView.Adapter<ProductRecycleAdapter.ViewHolder>() {
 
@@ -31,11 +39,33 @@ class ProductRecycleAdapter(val products : List<Product>, val context: Context) 
       val product = products[position]
         holder.productNameTV.text = product.productTitle
         holder.productDescription.text = product.productDescription
+
+        if (product.productPrimaryPicturePath.isNotEmpty()){
+            val imageRef = Firebase.storage.reference.child(product.productPrimaryPicturePath)
+            imageRef.downloadUrl.addOnSuccessListener {Uri ->
+                val imageUrl = Uri.toString()
+
+                Glide.with(context)
+                    .load(imageUrl)
+                    .into(holder.productMainPicture)
+
+
+
+            }
+
+        }
+
+
     }
+
+
+    //if(product.pr)
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         var productNameTV = itemView.findViewById<TextView>(R.id.tv_productName)
         var productDescription = itemView.findViewById<TextView>(R.id.tv_productDescription)
+
+        val productMainPicture = itemView.findViewById<ImageView>(R.id.imageViewMainPic)
 
     }
 
