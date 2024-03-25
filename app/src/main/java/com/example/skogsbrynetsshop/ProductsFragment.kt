@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.skogbrynetsverkstad.data.Product
 import com.example.skogsbrynetsshop.RecycleAdapter.ProductRecycleAdapter
+import com.example.skogsbrynetsshop.dataManagers.DataManagerProducts
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.toObject
 
@@ -27,7 +28,8 @@ class ProductsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    val productList = mutableListOf<Product>()
+
+    //val productList = mutableListOf<Product>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -53,7 +55,7 @@ class ProductsFragment : Fragment() {
         }
         val recyclerView = view.findViewById<RecyclerView>(R.id.productRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter = ProductRecycleAdapter(productList, requireContext())
+        val adapter = ProductRecycleAdapter(DataManagerProducts.products, requireContext())
         recyclerView.adapter = adapter
 
 
@@ -70,10 +72,12 @@ class ProductsFragment : Fragment() {
                     document.toObject<Product>()
                 }
 
-                productList.addAll(newItems)
-                adapter.notifyItemRangeInserted(productList.size - newItems.size, newItems.size)
+                DataManagerProducts.products.clear()
+                DataManagerProducts.products.addAll(newItems)
+                adapter.notifyDataSetChanged()
             }
         }
+
 
         return view
     }

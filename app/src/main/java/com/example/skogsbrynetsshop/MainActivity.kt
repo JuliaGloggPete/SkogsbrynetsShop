@@ -1,5 +1,6 @@
 package com.example.skogsbrynetsshop
 
+import BlogsFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -22,6 +23,7 @@ import com.google.firebase.ktx.Firebase
 import org.checkerframework.checker.units.qual.s
 
 val db = Firebase.firestore
+
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var fragmentManager: FragmentManager
@@ -38,7 +40,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(binding.toolbar)
 
 
-        val toggle = ActionBarDrawerToggle(this,binding.drawerLayout, binding.toolbar, R.string.nav_open, R.string.nav_close)
+        val toggle = ActionBarDrawerToggle(
+            this,
+            binding.drawerLayout,
+            binding.toolbar,
+            R.string.nav_open,
+            R.string.nav_close
+        )
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -46,7 +54,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         binding.bottomNavigation.background = null
         binding.bottomNavigation.setOnItemReselectedListener { item ->
-            when(item.itemId){
+            when (item.itemId) {
                 R.id.bottom_home -> openFragment(HomeFragment())
                 R.id.bottom_blogg -> openFragment(BlogsFragment())
                 R.id.bottom_product -> openFragment(ProductsFragment())
@@ -56,15 +64,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         fragmentManager = supportFragmentManager
         openFragment(HomeFragment())
-        binding.fab.setOnClickListener{
+        binding.fab.setOnClickListener {
             Toast.makeText(this, "Categories", Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
-        when(item.itemId){
-          R.id.nav_orders -> openFragment(OrdersFragment())
+        when (item.itemId) {
+            R.id.nav_orders -> openFragment(OrdersFragment())
             R.id.nav_products -> openFragment(ProductsFragment())
             R.id.nav_bloggs -> openFragment(BlogsFragment())
         }
@@ -74,7 +82,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBackPressed() {
-        if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
 
@@ -84,14 +92,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    private fun openFragment(fragment: Fragment)
-    {
-
+    private fun openFragment(fragment: Fragment) {
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragment_container, fragment)
-        fragmentTransaction.commit()
-
-
-
+        fragmentTransaction.commitNow() // Use commitNow() instead of commit()
     }
 }

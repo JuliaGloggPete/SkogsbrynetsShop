@@ -1,5 +1,7 @@
 package com.example.skogbrynetsverkstad.data
 
+import com.google.firebase.firestore.DocumentId
+
 data class Product(
     var productTitle: String = "",
     var productDescription: String = "",
@@ -18,6 +20,7 @@ data class Product(
     var needsCustomerInput: Boolean = false,
     var availability: Availability = Availability.AVAILABLE,
     var visibleOnHomepage: Boolean = false,
+    @DocumentId var documentId : String? = null,
 
 
 
