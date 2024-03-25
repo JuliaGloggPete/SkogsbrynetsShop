@@ -1,5 +1,3 @@
-package com.example.skogsbrynetsshop
-
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.skogbrynetsverkstad.data.Blog
 import com.example.skogbrynetsverkstad.data.Product
+import com.example.skogsbrynetsshop.R
 import com.example.skogsbrynetsshop.RecycleAdapter.BlogRecycleAdapter
+import com.example.skogsbrynetsshop.db
 import com.google.firebase.firestore.toObject
 
 
@@ -39,33 +39,33 @@ class BlogsFragment : Fragment() {
         }
     }
 
-        @SuppressLint("MissingInflatedId")
-        override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View? {
-            // Inflate the layout for this fragment
-            val view = inflater.inflate(R.layout.fragment_blogs, container, false)
-            val recyclerView = view.findViewById<RecyclerView>(R.id.blogRecyclerview)
-            recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            val adapter = BlogRecycleAdapter( requireContext(), blogList)
-            recyclerView.adapter = adapter
+    @SuppressLint("MissingInflatedId")
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_blogs, container, false)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.blogRecyclerview)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val adapter = BlogRecycleAdapter( requireContext(), blogList)
+        recyclerView.adapter = adapter
 
 
-            val docRef = db.collection("Blog")
-            docRef.get().addOnSuccessListener { collectionSnapShot ->
-                for (document in collectionSnapShot.documents) {
-                    val item = document.toObject<Blog>()
-                    if (item != null) {
-                        blogList.add(item)
-                    }
+        val docRef = db.collection("Blog")
+        docRef.get().addOnSuccessListener { collectionSnapShot ->
+            for (document in collectionSnapShot.documents) {
+                val item = document.toObject<Blog>()
+                if (item != null) {
+                    blogList.add(item)
                 }
-                adapter.notifyDataSetChanged()
             }
-
-            return view
-
+            adapter.notifyDataSetChanged()
         }
+
+        return view
+
+    }
 
 
 

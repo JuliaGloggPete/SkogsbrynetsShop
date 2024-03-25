@@ -25,6 +25,7 @@ import com.example.skogbrynetsverkstad.data.Size
 import com.example.skogsbrynetsshop.RecycleAdapter.ColorRecycleAdapter
 import com.example.skogsbrynetsshop.dataManagers.DataManagerColors
 import com.example.skogsbrynetsshop.dataManagers.DataManagerColors.colors
+import com.example.skogsbrynetsshop.dataManagers.DataManagerProducts
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -32,6 +33,11 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import com.google.firebase.storage.FirebaseStorage
+
+
+const val PRODUCT_POSITION_KEY = "PRODUCT_POSITION"
+const val POSITION_NOT_SET = -1
+
 
 class ProductCreateChangeDeleteActivity : AppCompatActivity() {
     lateinit var db: FirebaseFirestore
@@ -60,8 +66,6 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
     lateinit var imageUri: Uri
 
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_create_change_delete)
@@ -80,20 +84,35 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
         sheepWol = findViewById(R.id.checkBoxSheepWoll)
         newColor = findViewById(R.id.editTextAddNewColor)
 
+        val productPosition = intent.getIntExtra(PRODUCT_POSITION_KEY, POSITION_NOT_SET)
+        val addButton = findViewById<Button>(R.id.btnAdd2Firebase)
+
+
+        if (productPosition != POSITION_NOT_SET) {
+            displayProduct(productPosition)
+
+            addButton.setOnClickListener {
+                editProduct(productPosition)
+                finish()
+
+
+            }
+
+        } else {
+
+            addButton.setOnClickListener {
+
+
+                addProduct()
+
+                finish()
+            }
+        }
+
         val addPicButton = findViewById<Button>(R.id.btn_AddPic)
 
         addPicButton.setOnClickListener {
-           selectImage()
-
-        }
-
-        val addButton = findViewById<Button>(R.id.btnAdd2Firebase)
-        addButton.setOnClickListener {
-
-
-            addProduct()
-
-            finish()
+            selectImage()
 
         }
 
@@ -101,7 +120,7 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
 
 
 
-        colorRecyclerView  = findViewById<RecyclerView>(R.id.RV_color)
+        colorRecyclerView = findViewById<RecyclerView>(R.id.RV_color)
         //recyclerView.layoutManager = GridLayoutManager(this)
         colorRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -117,16 +136,53 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
 
 
     }
+
+    private fun editProduct(position: Int) {
+        DataManagerProducts.products[position].productTitle = productTitleET.text.toString()
+        DataManagerProducts.products[position].productDescription =
+            productLongDescription.text.toString()
+        DataManagerProducts.products[position].productShortDescription =
+            productShortDescriptionET.text.toString()
+        DataManagerProducts.products[position].productInformation =
+            productInformationET.text.toString()
+
+
+        db.collection("Product")
+
+
+            .document(DataManagerProducts.products[position].documentId!!)
+            .set(DataManagerProducts.products[position])
+
+
+
+        finish()
+
+
+    }
+
+    private fun displayProduct(position: Int) {
+        val product = DataManagerProducts.products[position]
+
+        productTitleET.setText(product.productTitle)
+        productLongDescription.setText(product.productDescription)
+        productInformationET.setText(product.productInformation)
+        productShortDescriptionET.setText(product.productShortDescription)
+
+
+    }
+
+
     private fun selectImage() {
 
         val intent = Intent()
-        intent.setType("image/*")
+        intent.type = "image/*"
 
-        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(intent, 100)
 
     }
-    fun addColor(){
+
+    fun addColor() {
 
         val colorName = newColor.text.toString()
 
@@ -137,6 +193,7 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
 
 
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -151,6 +208,7 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
 
 
     }
+
     private fun uploadImage() {
 
 
@@ -172,19 +230,24 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
 
 
             takeInPick.setImageURI(imageUri)
-            Toast.makeText(this@ProductCreateChangeDeleteActivity, "Successfuly upladed", Toast.LENGTH_SHORT)
+            Toast.makeText(
+                this@ProductCreateChangeDeleteActivity,
+                "Successfuly uplaoded",
+                Toast.LENGTH_SHORT
+            )
                 .show()
             if (progressDialog.isShowing) progressDialog.dismiss()
 
         }.addOnFailureListener {
 
             if (progressDialog.isShowing) progressDialog.dismiss()
-            Toast.makeText(this@ProductCreateChangeDeleteActivity,  "failed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ProductCreateChangeDeleteActivity, "failed", Toast.LENGTH_SHORT)
+                .show()
 
         }
     }
-    fun addProduct() {
 
+    fun addProduct() {
 
 
         var productTitle = productTitleET.text.toString()
@@ -215,9 +278,25 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
             productCategory.add("sheepWol")
         }
 
-        val newProduct = Product(productTitle,productDescription,productInformation,productShortDescription,
-            productCategory,productPrimaryPicturePath,productImagePaths,availableDifferentColors,colors,
-            availableDifferentSizes,sizes,price,packaging,count,needsCustomerInput,availability,visibleOnHomepage)
+        val newProduct = Product(
+            productTitle,
+            productDescription,
+            productInformation,
+            productShortDescription,
+            productCategory,
+            productPrimaryPicturePath,
+            productImagePaths,
+            availableDifferentColors,
+            colors,
+            availableDifferentSizes,
+            sizes,
+            price,
+            packaging,
+            count,
+            needsCustomerInput,
+            availability,
+            visibleOnHomepage
+        )
 
         db.collection("Product").add(newProduct)
 
