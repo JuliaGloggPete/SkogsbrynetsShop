@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+
 import com.example.skogbrynetsverkstad.data.Product
 import com.example.skogsbrynetsshop.RecycleAdapter.ProductRecycleAdapter
 import com.example.skogsbrynetsshop.dataManagers.DataManagerProducts
@@ -20,17 +22,13 @@ import com.google.firebase.firestore.toObject
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProductsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class ProductsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
-    //val productList = mutableListOf<Product>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {

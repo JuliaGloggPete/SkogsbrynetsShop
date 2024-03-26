@@ -6,16 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.skogbrynetsverkstad.data.OrderDetails
+
+import com.example.skogsbrynetsshop.RecycleAdapter.OrderRecycleAdapter
+
+import com.example.skogsbrynetsshop.dataManagers.DatamangerOrders
+import com.google.firebase.firestore.toObject
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [OrdersFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class OrdersFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -34,7 +37,42 @@ class OrdersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_orders, container, false)
+        val view = inflater.inflate(R.layout.fragment_orders, container, false)
+
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.orderItemsRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val adapter = OrderRecycleAdapter(DatamangerOrders.orders, requireContext())
+        recyclerView.adapter = adapter
+
+        val docRef = db.collection("Orders")
+
+        docRef.addSnapshotListener { collectionSnapShot, e ->
+            if (e != null) {
+                // Handle the error
+                return@addSnapshotListener
+            }
+
+            collectionSnapShot?.let {
+                val newItems = it.documents.mapNotNull { document ->
+                    document.toObject<OrderDetails>()
+                }
+
+                DatamangerOrders.orders.clear()
+                DatamangerOrders.orders.addAll(newItems)
+               adapter.notifyDataSetChanged()
+            }
+        }
+
+
+
+
+
+        return view
+
+
+
+
     }
 
     companion object {
