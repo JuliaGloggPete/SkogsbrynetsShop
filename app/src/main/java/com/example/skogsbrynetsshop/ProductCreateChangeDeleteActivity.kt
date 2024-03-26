@@ -1,5 +1,6 @@
 package com.example.skogsbrynetsshop
 
+import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
@@ -71,6 +72,7 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_product_create_change_delete)
 
         db = Firebase.firestore
+        productPrimaryPicturePath =""
 
         productTitleET = findViewById(R.id.TIET_productTitle)
         productInformationET = findViewById(R.id.TIET_productInformation)
@@ -105,7 +107,7 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
 
                 addProduct()
 
-                finish()
+
             }
         }
 
@@ -247,7 +249,7 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
         }
     }
 
-    fun addProduct() {
+    private fun addProduct() {
 
 
         var productTitle = productTitleET.text.toString()
@@ -256,17 +258,46 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
         var productShortDescription = productShortDescriptionET.text.toString()
         var productCategory = mutableListOf<String>()
 
+
         var productImagePaths = mutableListOf<String>()
         var availableDifferentColors = false
         var colors = mutableListOf<Color>()
         var availableDifferentSizes = false
         var sizes = mutableListOf<Size>()
-        var price = productPrice.text.toString().toDouble()
-        var packaging = packageSize.text.toString().toInt()
+        val priceString = productPrice.text.toString()
+        val packagingString = packageSize.text.toString()
         var count = 0
         var needsCustomerInput = false
         var availability = Product.Availability.AVAILABLE
         var visibleOnHomepage = false
+        var price = 0.0
+        var packaging = 0
+
+
+        if (productTitle.isEmpty() || productDescription.isEmpty() || productInformation.isEmpty() || priceString.isEmpty()) {
+            // Show an alert dialog indicating that required fields are empty
+            AlertDialog.Builder(this)
+                .setTitle("Error")
+                .setMessage("Product title, description, information, and price must be filled in.")
+                .setPositiveButton(android.R.string.ok, null)
+                .show()
+            return // Exit the function early if any required field is empty
+        }
+
+        // Parse price and packaging to double and int respectively
+        try {
+            price = priceString.toDouble()
+            packaging = packagingString.toInt()
+        } catch (e: NumberFormatException) {
+            // Handle invalid input for price or packaging
+            AlertDialog.Builder(this)
+                .setTitle("Error")
+                .setMessage("Invalid price or packaging format.")
+                .setPositiveButton(android.R.string.ok, null)
+                .show()
+            return // Exit the function early if price or packaging cannot be parsed
+        }
+
 
         if (krydda.isChecked) {
             productCategory.add("krydda")
@@ -299,6 +330,7 @@ class ProductCreateChangeDeleteActivity : AppCompatActivity() {
         )
 
         db.collection("Product").add(newProduct)
+        finish()
 
     }
 

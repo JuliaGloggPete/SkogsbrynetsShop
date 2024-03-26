@@ -17,6 +17,8 @@ import com.example.skogbrynetsverkstad.data.Product
 import com.example.skogsbrynetsshop.PRODUCT_POSITION_KEY
 import com.example.skogsbrynetsshop.ProductCreateChangeDeleteActivity
 import com.example.skogsbrynetsshop.R
+import com.example.skogsbrynetsshop.dataManagers.DataManagerProducts
+import com.example.skogsbrynetsshop.db
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
@@ -59,6 +61,16 @@ class ProductRecycleAdapter(val products: List<Product>, val context: Context) :
         }
 
 
+    }
+
+    fun removeProduct(position: Int) {
+
+        db.collection("Product")
+            .document(DataManagerProducts.products[position].documentId!!)
+            .delete()
+
+        DataManagerProducts.products.removeAt(position)
+        notifyDataSetChanged()
     }
 
 

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.skogbrynetsverkstad.data.Product
@@ -49,14 +50,32 @@ class ProductsFragment : Fragment() {
 
         val btnAddChangeProduct = view.findViewById<FloatingActionButton>(R.id.fabAddProduct)
 
-        btnAddChangeProduct.setOnClickListener {
-            val intent = Intent(requireContext(), ProductCreateChangeDeleteActivity::class.java)
-            startActivity(intent)
-        }
         val recyclerView = view.findViewById<RecyclerView>(R.id.productRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val adapter = ProductRecycleAdapter(DataManagerProducts.products, requireContext())
         recyclerView.adapter = adapter
+
+        btnAddChangeProduct.setOnClickListener {
+            val intent = Intent(requireContext(), ProductCreateChangeDeleteActivity::class.java)
+            startActivity(intent)
+        }
+
+        val swipeGesture = object : SwipeGesture(requireContext()) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                when (direction) {
+                    ItemTouchHelper.LEFT -> {
+                        adapter.removeProduct(viewHolder.adapterPosition)
+                    }
+                }
+
+
+
+
+            }
+        }
+        val touchHelper = ItemTouchHelper(swipeGesture)
+        touchHelper.attachToRecyclerView(recyclerView)
 
 
         val docRef = db.collection("Product")
